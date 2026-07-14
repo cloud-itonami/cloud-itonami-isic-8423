@@ -1,0 +1,10 @@
+{:itonami.blueprint/id "cloud-itonami-isic-8423"
+ :itonami.blueprint/name "Public Order and Safety Administrative Operations"
+ :itonami.blueprint/isic-rev5 "8423"
+ :itonami.blueprint/domain :safety/administration
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:public-safety-accountability :records-transparency :administrative-fairness]
+ :itonami.blueprint/governor :public-safety-governor
+ :itonami.blueprint/robotics true
+ :itonami.blueprint/required-technologies [:robotics :identity :forms :dmn :bpmn :audit-ledger]
+ :itonami.blueprint/status :public-oss}
