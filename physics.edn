@@ -1,0 +1,36 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a document-handling and verification robot
+;; performs incident intake, records-request processing, resource scheduling
+;; and anomaly flagging for public order and safety administration (ISIC 8423).
+;; Its physical work is moving and keeping records: carrying boxed incident
+;; files and evidence bags between the intake desk and the records room, and
+;; keeping paper records in a fire-resistant cabinet whose wall must hold the
+;; interior below the paper-damage temperature through a building fire.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isic-8423"
+ :cases
+ [{:id :incident-file-courier
+   :kind :transport
+   :procedure "courier robot carries a box of incident files from the intake desk to the records room, up the building's access ramp"
+   :params {:mass-kg 45.0 :payload-kg 15.0 :distance-m 80.0 :v-max-mps 1.0 :a-max-mps2 0.5
+            :brake-decel-mps2 0.8 :drive-force-n 120.0 :crr 0.02
+            :cog-height-m 0.55 :support-half-length-m 0.25 :max-time-s 3000.0}
+   :sweep {:param :slope-deg :values [0.0 2.0 4.0 6.0 8.0]}
+   :quantity :cycle-time-s
+   :limit {:max 120.0 :basis "estimate: one intake-to-records leg inside a 5-minute records-turnaround target, allowing for doors and lifts"}
+   :boundary {:lo 0.0 :hi 12.0}}
+  {:id :records-cabinet-fire-wall
+   :kind :thermal
+   :procedure "fire-resistant records cabinet wall (mineral insulation board) exposed to a standard building fire while paper files are stored inside"
+   :params {:conductivity-w-mk 0.10 :density-kg-m3 600.0 :specific-heat-j-kgk 1000.0
+            :hot-curve :iso-834 :h-front-w-m2k 25.0 :h-back-w-m2k 5.0
+            :threshold-c 177.0 :duration-s 3600.0 :nodes 21}
+   :sweep {:param :thickness-m :values [0.02 0.03 0.04 0.06 0.08]}
+   :quantity :peak-back-c
+   :limit {:max 177.0 :basis "UL 72 Class 350 (1 h): record interior must stay at or below 350 F (177 C) for the rated hour; the ISO 834-1 curve stands in for the UL 72 furnace curve (estimate of equivalence)"}
+   :boundary {:lo 0.01 :hi 0.12}}]}
