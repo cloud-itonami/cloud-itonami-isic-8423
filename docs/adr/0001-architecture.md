@@ -143,5 +143,5 @@ These are not "high-risk operations requiring escalation" — they are entirely 
 ## References
 
 - ADR-2607011000: Itonami Actor Pattern (langgraph-clj StateGraph)
-- CLAUDE.md, Actors section: Standing regulations for actor design in this workspace
+- AGENTS.md, Actors section: Standing regulations for actor design in this workspace
 - 8422 (Defence Procurement): Similar scope-boundary discipline for a defence context
